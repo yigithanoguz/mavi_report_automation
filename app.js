@@ -13,7 +13,7 @@ const downloadPath = path.resolve(__dirname, "downloads");
 // Otomasyon fonksiyonu
 async function runAutomation() {
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     defaultViewport: null,
     args: ["--start-maximized"],
   });
