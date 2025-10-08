@@ -6,9 +6,9 @@ async function downloadReport(page, downloadPath) {
   const today = dayjs().format("DD/MM/YYYY");
   const url = `https://dbcrm.mavi.web.tr/crm_test/raporlar/view/raporlar.php?bolum=21&sekme1=2O&islem1=2&id=50&btarih=${encodeURIComponent(
     today
-  )}&etarih=${encodeURIComponent(
-    today
-  )}&departman=0&kullanici=yigithan&listele=Listele`;
+  )}&etarih=${encodeURIComponent(today)}&departman=0&kullanici=${
+    process.env.CRM_USER
+  }&listele=Listele`;
 
   console.log("🔗 Sayfa açılıyor:", url);
   await page.goto(url, { waitUntil: "networkidle2" });
@@ -20,9 +20,9 @@ async function downloadReport(page, downloadPath) {
   });
 
   await fs.ensureDir(downloadPath);
-  const safeFileName = `Gunluk_Faaliyet_Raporu_Rasim_Yigithan_OGUZ_${dayjs().format(
-    "YYYYMMDD"
-  )}.xls`;
+  const safeFileName = `Gunluk_Faaliyet_Raporu_${
+    process.env.CRM_USER
+  }_${dayjs().format("YYYYMMDD")}.xls`;
   const filePath = path.join(downloadPath, safeFileName);
 
   await fs.writeFile(filePath, html, "utf8");
