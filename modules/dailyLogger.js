@@ -36,10 +36,17 @@ function start() {
 // Dinamik zaman planlayıcı
 function scheduleAtTime(callback) {
   const cronExp = `${minute} ${hour} * * *`;
-  cron.schedule(cronExp, async () => {
-    console.log(`🕕 Saat ${hour}:${minute} oldu, otomasyon başlıyor...`);
-    await callback();
-  });
+  cron.schedule(
+    cronExp,
+    async () => {
+      console.log(`🕕 Saat ${hour}:${minute} oldu, otomasyon başlıyor...`);
+      await callback();
+    },
+    {
+      scheduled: true,
+      recoverMissedExecutions: true,
+    }
+  );
 }
 
 module.exports = { start, scheduleAtTime, errorInfo };

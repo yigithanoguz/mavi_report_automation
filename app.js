@@ -39,5 +39,3 @@ dailyLogger.start();
 
 // 18:30 cron ile otomasyonu tetikle
 dailyLogger.scheduleAtTime(runAutomation);
-
-module.exports = { runAutomation };
